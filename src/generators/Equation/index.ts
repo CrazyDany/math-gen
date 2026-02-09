@@ -20,7 +20,11 @@ class EquationGenerator implements IProblemGenerator {
     }
     generateInstance(): IProblemInstance {
         console.log(this.generationData);
-        return { generatedData: this.generationData };
+        return {
+            name: "equation",
+            variables: {},
+            structure: []
+        };
     }
 }
 

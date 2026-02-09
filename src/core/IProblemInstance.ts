@@ -1,3 +1,11 @@
 export default interface IProblemInstance {
-    generatedData: object,
+    name: string,
+    variables: object,
+    structure: Array<TStructurePart>
+}
+
+export type TStructurePart = {
+    type: string,
+    variables: object,
+    childrens: Array<TStructurePart>
 }

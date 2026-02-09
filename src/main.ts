@@ -8,5 +8,4 @@ register.addProblemTemplate(new EquaionTemplate({}));
 const equationTemplate = register.getProblemTemplate("equation");
 if (equationTemplate) {
     const instance = equationTemplate.generator.generateInstance();
-    console.log(instance);
 }

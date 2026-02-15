@@ -1,4 +1,3 @@
-import { TExNumber } from "./math.js";
 import { TRealFraction } from "./math.js";
 
 function getRandomNumber(min: number, max: number, type: string = "real", floatLength: number = 0): number {
@@ -18,35 +17,14 @@ function getRandomNumber(min: number, max: number, type: string = "real", floatL
     throw new Error("Invalid type of random number")
 }
 
-function getRandomExNumber(min: number, max: number, type: string = "real", floatLength: number = 0): TExNumber {
-    const randomNumber: number = getRandomNumber(min, max, type, floatLength)
+function getRandomNumbers(min: number, max: number, count: number, type: string = "real", floatLength: number = 0): number[] {
+    const numbers: number[] = []
 
-    const randomExNumber: TExNumber = {
-        realPart: {
-            numerator: 0,
-            denominator: 1
-        },
-        imaginaryPart: {
-            numerator: 0,
-            denominator: 1
-        }
+    for (let i = 0; i < count; i++) {
+        numbers.push(getRandomNumber(min, max, type, floatLength))
     }
 
-    if (type === "real") {
-        randomExNumber.realPart = {
-            numerator: randomNumber,
-            denominator: 1
-        }
-    }
-
-    if (type === "complex") {
-        randomExNumber.imaginaryPart = {
-            numerator: randomNumber,
-            denominator: 1
-        }
-    }
-
-    return randomExNumber
+    return numbers
 }
 
-export { getRandomNumber }
+export { getRandomNumber, getRandomNumbers }

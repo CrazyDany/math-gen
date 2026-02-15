@@ -1,8 +1,8 @@
 import IProblemGenerator from "./IProblemGenerator.js";
 
-export default interface IProblemTemplate {
+export default interface IProblemTemplate<Config = object> {
     id: string,
-    config: object,
-    default_config: object,
+    _config: object,
+    getDefaultConfig(): Config
     generator: IProblemGenerator
 }

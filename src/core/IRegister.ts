@@ -1,6 +1,6 @@
 import IProblemTemplate from "./IProblemTemplate.js";
 
-export default class IRegister {
+export default class ProblemsRegister {
     problemsList: Map<string, IProblemTemplate>
 
     constructor() {

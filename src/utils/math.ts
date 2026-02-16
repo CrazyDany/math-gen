@@ -61,4 +61,55 @@ function simplifyFraction(fraction: TRealFraction): TRealFraction {
     }
 }
 
-export { numberFactorization, simplifyFraction }
+function polynomialFromRoots(roots: number[], coefficient: number = 1): string {
+    let coeffs: number[] = [1];
+    for (const r of roots) {
+        const newCoeffs: number[] = new Array(coeffs.length + 1).fill(0);
+        for (let i = 0; i < coeffs.length; i++) {
+            const current = coeffs[i];
+            if (current === undefined) continue;
+            newCoeffs[i + 1] = (newCoeffs[i + 1] || 0) + current;
+            newCoeffs[i] = (newCoeffs[i] || 0) + (-r * current);
+        }
+        coeffs = newCoeffs;
+    }
+    const finalCoeffs = coeffs.map(c => c * coefficient);
+
+    if (finalCoeffs.every(c => c === undefined || Math.abs(c) < 1e-12)) {
+        return "0";
+    }
+
+    let result = "";
+    let first = true;
+    const highestDegree = finalCoeffs.length - 1;
+
+    for (let degree = highestDegree; degree >= 0; degree--) {
+        const coeff = finalCoeffs[degree];
+        if (coeff === undefined || Math.abs(coeff) < 1e-12) continue;
+
+        const absCoeff = Math.abs(coeff);
+
+        const formatNumber = (value: number): string => {
+            return Number.isInteger(value) ? value.toString() : value.toString();
+        };
+
+        let term: string;
+        if (degree === 0) {
+            term = formatNumber(absCoeff);
+        } else {
+            const variablePart = degree === 1 ? "x" : `x^${degree}`;
+            term = absCoeff === 1 ? variablePart : formatNumber(absCoeff) + variablePart;
+        }
+
+        if (first) {
+            result += (coeff < 0 ? "-" : "") + term;
+            first = false;
+        } else {
+            result += (coeff > 0 ? "+" : "-") + term;
+        }
+    }
+
+    return result;
+}
+
+export { numberFactorization, simplifyFraction, polynomialFromRoots }
